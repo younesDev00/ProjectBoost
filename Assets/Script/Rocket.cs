@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
@@ -63,9 +62,26 @@ public class Rocket : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "friendly")
+        
+        string tag = collision.gameObject.tag;
+        if (tag != "friendly")
         {
-            this.gameObject.SetActive(false);
+            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            if (tag == "finish")
+            {
+                print(SceneManager.GetActiveScene().buildIndex);
+                if (SceneManager.sceneCount >= sceneIndex + 1)
+                {
+                    print(sceneIndex + " i 1 ");
+                    SceneManager.LoadScene(++sceneIndex);
+                }else {
+                    print(SceneManager.GetActiveScene().buildIndex + " 2 ");
+                    SceneManager.LoadScene(0);
+                }
+            }
+            
+            //this.gameObject.SetActive(false);
+            SceneManager.LoadScene(sceneIndex);
         }
     }
 

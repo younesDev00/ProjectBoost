@@ -294,7 +294,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8928722403645708236}
   m_LocalRotation: {x: 0.2685029, y: -0.17613223, z: 0.050006445, w: 0.9457183}
-  m_LocalPosition: {x: 27.070347, y: -2.1261964, z: 7.5961676}
+  m_LocalPosition: {x: 22.86, y: 16.81, z: 18.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8928722404469722227}
@@ -312,7 +312,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -321,7 +321,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.33
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -404,6 +404,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8928722404469722227}
     m_Modifications:
+    - target: {fileID: 7651505041706208646, guid: 7ea6db1d317412b4b972a4294ff78809,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651505041706208646, guid: 7ea6db1d317412b4b972a4294ff78809,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651505041706208646, guid: 7ea6db1d317412b4b972a4294ff78809,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651505041706208649, guid: 7ea6db1d317412b4b972a4294ff78809,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651505041706208649, guid: 7ea6db1d317412b4b972a4294ff78809,
+        type: 3}
+      propertyPath: m_Range
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651505041706208649, guid: 7ea6db1d317412b4b972a4294ff78809,
+        type: 3}
+      propertyPath: m_SpotAngle
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 7651505041821979985, guid: 7ea6db1d317412b4b972a4294ff78809,
         type: 3}
       propertyPath: m_Name
@@ -412,12 +442,12 @@ PrefabInstance:
     - target: {fileID: 7651505041821980013, guid: 7ea6db1d317412b4b972a4294ff78809,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 83.17035
+      value: 78.7
       objectReference: {fileID: 0}
     - target: {fileID: 7651505041821980013, guid: 7ea6db1d317412b4b972a4294ff78809,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.673803
+      value: 19.4
       objectReference: {fileID: 0}
     - target: {fileID: 7651505041821980013, guid: 7ea6db1d317412b4b972a4294ff78809,
         type: 3}
