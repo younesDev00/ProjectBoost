@@ -5,10 +5,21 @@ public class Rocket : MonoBehaviour
 {
 
     Rigidbody rigidBody;
+
     AudioSource audioSource;
+    [SerializeField] AudioClip thrustAudio;
+    [SerializeField] AudioClip deathAudio;
+    [SerializeField] AudioClip winAudio;
+
+    [SerializeField] ParticleSystem thrustParticleSystem;
+    [SerializeField] ParticleSystem deathParticleSystem;
+    [SerializeField] ParticleSystem winParticleSystem;
 
     [SerializeField] float rotateThrust = 100f;
     [SerializeField] float thrustSpeed = 10f;
+    [SerializeField] float delayTime = 3f;
+
+    private bool delayed = false; //alive dead transitioning
 
     void Start()
     {
@@ -19,8 +30,15 @@ public class Rocket : MonoBehaviour
 
     private void FixedUpdate()
     {
-        thrust();
-        rotate();
+        if (!delayed)
+        {
+            thrust();
+            rotate();
+        }
+        else
+        {
+            //audioSource.Stop();
+        }
     }
 
     private void thrust()
@@ -28,13 +46,16 @@ public class Rocket : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             if (!audioSource.isPlaying)
-                audioSource.Play();
-
+            {
+                audioSource.PlayOneShot(thrustAudio);
+                thrustParticleSystem.Play();
+            }
             rigidBody.AddRelativeForce(Vector3.up * Time.deltaTime * thrustSpeed);
         }
         else
         {
             audioSource.Stop();
+            thrustParticleSystem.Stop();
         }
     }
 
@@ -62,28 +83,57 @@ public class Rocket : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+
         string tag = collision.gameObject.tag;
         if (tag != "friendly")
         {
-            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int index = SceneManager.GetActiveScene().buildIndex;
             if (tag == "finish")
             {
-                print(SceneManager.GetActiveScene().buildIndex);
-                if (SceneManager.sceneCount >= sceneIndex + 1)
+                if (SceneManager.sceneCountInBuildSettings > index + 1) //next level
                 {
-                    print(sceneIndex + " i 1 ");
-                    SceneManager.LoadScene(++sceneIndex);
-                }else {
-                    print(SceneManager.GetActiveScene().buildIndex + " 2 ");
-                    SceneManager.LoadScene(0);
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(winAudio);
+                    winParticleSystem.Play();
+                    delayed = true;
+                    Invoke("loadNextScene", delayTime);
                 }
+                else //restart
+                {
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(winAudio);
+                    winParticleSystem.Play();
+                    delayed = true;
+                    Invoke("restart", delayTime);
+                }
+            }else
+            {
+                audioSource.Stop();
+                audioSource.PlayOneShot(deathAudio);
+                deathParticleSystem.Play();
+                delayed = true;
+                Invoke("reloadScene", delayTime);
             }
-            
-            //this.gameObject.SetActive(false);
-            SceneManager.LoadScene(sceneIndex);
         }
     }
+
+    private void loadNextScene()
+    {
+        delayed = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    private void restart()
+    {
+        SceneManager.LoadScene(0);
+    }
+    private void reloadScene()
+    {
+        //this.gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+
+
 
 
 }
